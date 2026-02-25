@@ -1,10 +1,8 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Tabs } from "expo-router";
 import React from "react";
 
-import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useColorScheme } from "@/components/useColorScheme";
-import Colors from "@/constants/Colors";
+import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -18,40 +16,28 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true)
-      }}
+    <NativeTabs
+    // screenOptions={{
+    //   tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+    //   // Disable the static render of the header on web
+    //   // to prevent a hydration error in React Navigation v6.
+    //   headerShown: useClientOnlyValue(false, true)
+    // }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          header: () => null,
-          tabBarIcon: ({ color }) => <TabBarIcon name="cube" color={color} />,
-          title: "Packages"
-        }}
-      />
+      <NativeTabs.Trigger name="index">
+        <Label>Home</Label>
+        <Icon sf="cube" />
+      </NativeTabs.Trigger>
 
-      <Tabs.Screen
-        name="notifications"
-        options={{
-          header: () => null,
-          tabBarIcon: ({ color }) => <TabBarIcon name="bell" color={color} />,
-          title: "Notifications"
-        }}
-      />
+      <NativeTabs.Trigger name="notifications">
+        <Label>Notifications</Label>
+        <Icon sf="bell" />
+      </NativeTabs.Trigger>
 
-      <Tabs.Screen
-        name="profile"
-        options={{
-          header: () => null,
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
-          title: "Profile"
-        }}
-      />
-    </Tabs>
+      <NativeTabs.Trigger name="profile/index">
+        <Label>Profile</Label>
+        <Icon sf="person" />
+      </NativeTabs.Trigger>
+    </NativeTabs>
   );
 }
