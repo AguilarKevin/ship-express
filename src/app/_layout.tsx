@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { config } from "@/tamagui.config";
+import { TamaguiProvider } from "tamagui";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -53,10 +55,12 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <TamaguiProvider config={config} defaultTheme="light">
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </ThemeProvider>
+    </TamaguiProvider>
   );
 }
