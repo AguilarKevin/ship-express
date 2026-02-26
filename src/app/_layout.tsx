@@ -1,8 +1,8 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, useRouter, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
@@ -22,13 +22,22 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+async function checkAuthSession() {
+  // TODO: replace with real auth token/session validation.
+  return false;
+}
+
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font
   });
+  const [authReady, setAuthReady] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const colorScheme = useColorScheme();
+  const router = useRouter();
+  const segments = useSegments();
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -36,12 +45,37 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    const runAuthCheck = async () => {
+      const hasSession = await checkAuthSession();
+      setIsAuthenticated(hasSession);
+      setAuthReady(true);
+    };
+
+    runAuthCheck();
+  }, []);
+
+  useEffect(() => {
+    if (!loaded || !authReady) return;
+
+    const inAuthGroup = segments[0] === "auth";
+
+    if (!isAuthenticated && !inAuthGroup) {
+      router.replace("/auth/login");
+      return;
+    }
+
+    if (isAuthenticated && inAuthGroup) {
+      router.replace("/");
+    }
+  }, [authReady, isAuthenticated, loaded, router, segments]);
+
+  useEffect(() => {
+    if (loaded && authReady) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [authReady, loaded]);
 
-  if (!loaded) {
+  if (!loaded || !authReady) {
     return null;
   }
 
