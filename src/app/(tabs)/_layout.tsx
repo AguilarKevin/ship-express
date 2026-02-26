@@ -23,7 +23,7 @@ export default function TabLayout() {
         <Icon sf="bell" />
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="profile/index">
+      <NativeTabs.Trigger name="profile">
         <Label>Profile</Label>
         <Icon sf="person" />
       </NativeTabs.Trigger>

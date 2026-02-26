@@ -51,7 +51,14 @@ export default function RootLayout() {
       defaultTheme={colorScheme === "dark" ? "dark" : "light"}
     >
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(tabs)"
+          options={{ headerShown: false, headerTitle: "" }}
+        />
+        <Stack.Screen
+          name="(modals)/contact-info"
+          options={{ presentation: "pageSheet", headerShown: true }}
+        />
       </Stack>
     </TamaguiProvider>
   );
