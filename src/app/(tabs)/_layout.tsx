@@ -1,28 +1,17 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
 
-import { useColorScheme } from "@/components/useColorScheme";
 import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
-
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
-  return <FontAwesome size={22} style={{ marginBlockEnd: 4 }} {...props} />;
-}
+import { useTheme } from "tamagui";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const theme = useTheme();
 
   return (
     <NativeTabs
-    // screenOptions={{
-    //   tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-    //   // Disable the static render of the header on web
-    //   // to prevent a hydration error in React Navigation v6.
-    //   headerShown: useClientOnlyValue(false, true)
-    // }}
+      iconColor={{
+        default: theme.colorMuted?.val ?? theme.color.val,
+        selected: theme.accent1.val
+      }}
     >
       <NativeTabs.Trigger name="index">
         <Label>Home</Label>
