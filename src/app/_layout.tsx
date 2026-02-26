@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { supabase } from "@/lib/supabase";
 import { config } from "@/tamagui.config";
 import { TamaguiProvider } from "tamagui";
 
@@ -23,8 +24,14 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 async function checkAuthSession() {
-  // TODO: replace with real auth token/session validation.
-  return false;
+  const { data, error } = await supabase.auth.getSession();
+  if (error) return false;
+
+  const session = data.session;
+  if (!session?.access_token || !session.user) return false;
+
+  if (!session.expires_at) return true;
+  return session.expires_at * 1000 > Date.now();
 }
 
 export default function RootLayout() {
