@@ -1,14 +1,17 @@
 import { ScrollView } from "@/components/Themed";
+import { containerStyles } from "@/constants/Styles";
+import { supabase } from "@/lib/supabase";
 import {
   History,
   Info,
+  LogOut,
   MapPinned,
   Package,
   PhoneForwarded,
   UserCircle2
 } from "@tamagui/lucide-icons";
 import { useRouter } from "expo-router";
-import { StyleSheet } from "react-native";
+import { useState } from "react";
 import {
   H5,
   ListItem,
@@ -24,7 +27,8 @@ const sections: Array<{
   options: Array<{
     title: string;
     icon: ListItemProps["icon"];
-    link: AppRoute;
+    link?: AppRoute;
+    action?: "logout";
   }>;
 }> = [
   {
@@ -80,8 +84,8 @@ const sections: Array<{
     options: [
       {
         title: "Cerrar sesión",
-        icon: <History />,
-        link: "/auth/login"
+        icon: <LogOut />,
+        action: "logout"
       }
     ]
   }
@@ -89,13 +93,28 @@ const sections: Array<{
 
 export default function ProfileIndexScreen() {
   const router = useRouter();
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
+  const handleLogout = async () => {
+    if (isSigningOut) return;
+    setIsSigningOut(true);
+
+    const { error } = await supabase.auth.signOut();
+    setIsSigningOut(false);
+
+    if (error) {
+      console.error("Sign out error:", error.message);
+      return;
+    }
+
+    router.replace("/auth/login");
+  };
 
   return (
     <ScrollView>
       <YStack
         style={{
-          ...styles.container,
-          backgroundClip: "transparent"
+          ...containerStyles.styles
         }}
       >
         <Text
@@ -127,43 +146,40 @@ export default function ProfileIndexScreen() {
               marginBlockStart="$3"
             >
               {section.options.map((option, index) => (
-                <>
-                  <YGroup.Item key={index}>
+                <YStack key={index}>
+                  <YGroup.Item>
                     <ListItem
-                      title={option.title}
+                      title={
+                        option.action === "logout" && isSigningOut
+                          ? "Cerrando sesión..."
+                          : option.title
+                      }
                       icon={option.icon}
                       size="$3"
                       iconSize="$5"
                       paddingBlock="$4"
                       paddingInline="$4"
-                      onPress={() => router.push(option.link)}
+                      disabled={option.action === "logout" && isSigningOut}
+                      onPress={() => {
+                        if (option.action === "logout") {
+                          void handleLogout();
+                          return;
+                        }
+
+                        if (option.link) {
+                          router.push(option.link);
+                        }
+                      }}
                     />
                   </YGroup.Item>
 
                   {index < section.options.length - 1 && <Separator />}
-                </>
+                </YStack>
               ))}
             </YGroup>
           </YStack>
         ))}
       </YStack>
-      {/* <Stack></Stack> */}
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    paddingInline: 20,
-    paddingBlock: 20,
-    gap: 10,
-    backgroundColor: "$background"
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold"
-  }
-});

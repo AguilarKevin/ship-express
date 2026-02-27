@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
 
-import { Text, View } from "@/components/Themed";
+import { SafeAreaView, Text, View } from "@/components/Themed";
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>No packages</Text>
-    </View>
+    <SafeAreaView>
+      <View>
+        <Text style={styles.title}>No packages</Text>
+      </View>
+    </SafeAreaView>
   );
 }
 

@@ -59,6 +59,18 @@ export default function RootLayout() {
     };
 
     runAuthCheck();
+
+    const {
+      data: { subscription }
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      const hasSession = Boolean(session?.access_token && session.user);
+      setIsAuthenticated(hasSession);
+      setAuthReady(true);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -87,10 +99,7 @@ export default function RootLayout() {
   }
 
   return (
-    <TamaguiProvider
-      config={config}
-      defaultTheme={colorScheme === "dark" ? "dark" : "light"}
-    >
+    <TamaguiProvider config={config} defaultTheme={colorScheme ?? "light"}>
       <Stack>
         <Stack.Screen
           name="(tabs)"
@@ -99,6 +108,13 @@ export default function RootLayout() {
         <Stack.Screen
           name="(modals)/contact-info"
           options={{ presentation: "pageSheet", headerShown: true }}
+        />
+
+        <Stack.Screen
+          name="auth/login"
+          options={{
+            headerShown: false
+          }}
         />
       </Stack>
     </TamaguiProvider>
