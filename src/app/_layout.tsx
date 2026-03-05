@@ -1,14 +1,14 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useFonts } from "expo-font";
-import { Stack, useRouter, useSegments } from "expo-router";
+import {useFonts} from "expo-font";
+import {Stack, useRouter, useSegments} from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/components/useColorScheme";
-import { supabase } from "@/lib/supabase";
-import { config } from "@/tamagui.config";
-import { TamaguiProvider } from "tamagui";
+import {useColorScheme} from "@/components/useColorScheme";
+import {supabase} from "@/lib/supabase";
+import {config} from "@/tamagui.config";
+import {TamaguiProvider, useTheme} from "tamagui";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -32,6 +32,47 @@ async function checkAuthSession() {
 
   if (!session.expires_at) return true;
   return session.expires_at * 1000 > Date.now();
+}
+
+function ThemedStack() {
+  const theme = useTheme();
+
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.background.val
+        },
+        headerTintColor: theme.color.val,
+        headerTitleStyle: {
+          color: theme.color.val
+        },
+        headerShadowVisible: false
+      }}
+    >
+      <Stack.Screen
+        name="(tabs)"
+        options={{ headerShown: false, headerTitle: "" }}
+      />
+      <Stack.Screen
+        name="(modals)/contact-info"
+        options={{ presentation: "pageSheet", headerShown: true }}
+      />
+
+      <Stack.Screen
+        name="auth/login"
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="auth/signup"
+        options={{
+          headerShown: false
+        }}
+      />
+    </Stack>
+  );
 }
 
 export default function RootLayout() {
@@ -99,30 +140,12 @@ export default function RootLayout() {
   }
 
   return (
-    <TamaguiProvider config={config} defaultTheme={colorScheme ?? "light"}>
-      <Stack>
-        <Stack.Screen
-          name="(tabs)"
-          options={{ headerShown: false, headerTitle: "" }}
-        />
-        <Stack.Screen
-          name="(modals)/contact-info"
-          options={{ presentation: "pageSheet", headerShown: true }}
-        />
+    <TamaguiProvider
+      config={config}
+      defaultTheme={colorScheme ? `${colorScheme}` : "light"}
 
-        <Stack.Screen
-          name="auth/login"
-          options={{
-            headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name="auth/signup"
-          options={{
-            headerShown: false
-          }}
-        />
-      </Stack>
+    >
+       <ThemedStack />
     </TamaguiProvider>
   );
 }
