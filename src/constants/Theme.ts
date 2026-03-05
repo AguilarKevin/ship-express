@@ -10,63 +10,63 @@ import { createV5Theme, defaultChildrenThemes } from "@tamagui/config/v5";
 import { v5ComponentThemes } from "@tamagui/themes/v5";
 
 const darkPalette = [
-  "hsla(0, 15%, 1%, 1)",
-  "hsla(0, 15%, 6%, 1)",
-  "hsla(0, 15%, 12%, 1)",
-  "hsla(0, 15%, 17%, 1)",
-  "hsla(0, 15%, 23%, 1)",
-  "hsla(0, 15%, 28%, 1)",
-  "hsla(0, 15%, 34%, 1)",
-  "hsla(0, 15%, 39%, 1)",
-  "hsla(0, 15%, 45%, 1)",
-  "hsla(0, 15%, 50%, 1)",
-  "hsla(0, 15%, 99%, 1)",
-  "hsla(0, 15%, 99%, 1)"
+  "hsla(0, 0%, 1%, 1)",
+  "hsla(0, 0%, 6%, 1)",
+  "hsla(0, 0%, 12%, 1)",
+  "hsla(0, 0%, 17%, 1)",
+  "hsla(0, 0%, 23%, 1)",
+  "hsla(0, 0%, 28%, 1)",
+  "hsla(0, 0%, 34%, 1)",
+  "hsla(0, 0%, 39%, 1)",
+  "hsla(0, 0%, 45%, 1)",
+  "hsla(0, 0%, 50%, 1)",
+  "hsla(0, 0%, 93%, 1)",
+  "hsla(0, 0%, 99%, 1)"
 ];
 const lightPalette = [
-  "hsla(0, 15%, 99%, 1)",
-  "hsla(0, 15%, 94%, 1)",
-  "hsla(0, 15%, 88%, 1)",
-  "hsla(0, 15%, 83%, 1)",
-  "hsla(0, 15%, 77%, 1)",
-  "hsla(0, 15%, 72%, 1)",
-  "hsla(0, 15%, 66%, 1)",
-  "hsla(0, 15%, 61%, 1)",
-  "hsla(0, 15%, 55%, 1)",
-  "hsla(0, 15%, 50%, 1)",
-  "hsla(0, 15%, 15%, 1)",
-  "hsla(0, 15%, 1%, 1)"
+  "hsla(0, 0%, 99%, 1)",
+  "hsla(0, 0%, 94%, 1)",
+  "hsla(0, 0%, 88%, 1)",
+  "hsla(0, 0%, 83%, 1)",
+  "hsla(0, 0%, 77%, 1)",
+  "hsla(0, 0%, 72%, 1)",
+  "hsla(0, 0%, 66%, 1)",
+  "hsla(0, 0%, 61%, 1)",
+  "hsla(0, 0%, 55%, 1)",
+  "hsla(0, 0%, 50%, 1)",
+  "hsla(0, 0%, 15%, 1)",
+  "hsla(0, 0%, 1%, 1)"
 ];
 
 // Your custom accent color theme
 const accentLight = {
-  accent1: "hsla(10, 90%, 50%, 1)",
-  accent2: "hsla(10, 90%, 51%, 1)",
-  accent3: "hsla(10, 91%, 52%, 1)",
-  accent4: "hsla(10, 91%, 53%, 1)",
-  accent5: "hsla(10, 91%, 54%, 1)",
-  accent6: "hsla(10, 91%, 56%, 1)",
-  accent7: "hsla(10, 91%, 57%, 1)",
-  accent8: "hsla(10, 92%, 58%, 1)",
-  accent9: "hsla(10, 92%, 59%, 1)",
-  accent10: "hsla(10, 92%, 60%, 1)",
-  accent11: "hsla(83, 90%, 5%, 1)",
-  accent12: "hsla(85, 90%, 1%, 1)"
+  accent1: "hsla(25, 95%, 45%, 1)",
+  accent2: "hsla(25, 95%, 48%, 1)",
+  accent3: "hsla(25, 95%, 51%, 1)",
+  accent4: "hsla(25, 95%, 54%, 1)",
+  accent5: "hsla(25, 95%, 57%, 1)",
+  accent6: "hsla(25, 95%, 60%, 1)",
+  accent7: "hsla(25, 95%, 63%, 1)",
+  accent8: "hsla(25, 95%, 66%, 1)",
+  accent9: "hsla(25, 95%, 69%, 1)",
+  accent10: "hsla(25, 95%, 72%, 1)",
+  accent11: "hsla(25, 95%, 75%, 1)",
+  accent12: "hsla(25, 95%, 78%, 1)"
 };
 
 const accentDark = {
-  accent1: "hsla(10, 90%, 68%, 1)",
-  accent2: "hsla(10, 90%, 66%, 1)",
-  accent3: "hsla(10, 91%, 64%, 1)",
-  accent4: "hsla(10, 91%, 63%, 1)",
-  accent5: "hsla(10, 91%, 61%, 1)",
-  accent6: "hsla(10, 91%, 59%, 1)",
-  accent7: "hsla(10, 91%, 57%, 1)",
-  accent8: "hsla(10, 92%, 56%, 1)",
-  accent9: "hsla(10, 92%, 54%, 1)",
-  accent10: "hsla(10, 92%, 52%, 1)",
-  accent11: "hsla(83, 90%, 2%, 1)",
-  accent12: "hsla(85, 90%, 1%, 1)"
+  accent1: "hsla(25, 90%, 40%, 1)",
+  accent2: "hsla(25, 90%, 43%, 1)",
+  accent3: "hsla(25, 90%, 46%, 1)",
+  accent4: "hsla(25, 90%, 49%, 1)",
+  accent5: "hsla(25, 90%, 52%, 1)",
+  accent6: "hsla(25, 90%, 55%, 1)",
+  accent7: "hsla(25, 90%, 58%, 1)",
+  accent8: "hsla(25, 90%, 61%, 1)",
+  accent9: "hsla(25, 90%, 64%, 1)",
+  accent10: "hsla(25, 90%, 67%, 1)",
+  accent11: "hsla(25, 90%, 70%, 1)",
+  accent12: "hsla(25, 90%, 73%, 1)"
 };
 
 const builtThemes = createV5Theme({
