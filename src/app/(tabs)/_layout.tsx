@@ -15,7 +15,7 @@ export default function TabLayout() {
     >
       <NativeTabs.Trigger name="index">
         <Label>Home</Label>
-        <Icon sf="cube" />
+        <Icon sf="house" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="notifications">
@@ -24,7 +24,7 @@ export default function TabLayout() {
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="profile">
-        <Label>Profile</Label>
+        <Label>Account</Label>
         <Icon sf="person" />
       </NativeTabs.Trigger>
     </NativeTabs>
