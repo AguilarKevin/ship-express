@@ -1,18 +1,18 @@
-import { SafeAreaView, ScrollView, Text } from "@/components/Themed";
-import { containerStyles } from "@/constants/Styles";
-import { supabase } from "@/lib/supabase";
-import { Eye, EyeOff, Lock, Mail } from "@tamagui/lucide-icons";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useRouter } from "expo-router";
-import { useState } from "react";
-import { Pressable } from "react-native";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
+import {SafeAreaView, ScrollView, Text} from "@/components/Themed";
+import {containerStyles} from "@/constants/Styles";
+import {supabase} from "@/lib/supabase";
+import {Eye, EyeOff, Lock, Mail} from "@tamagui/lucide-icons";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {Link, useRouter} from "expo-router";
+import {useState} from "react";
+import {Pressable} from "react-native";
+import {Controller, useForm} from "react-hook-form";
+import {z} from "zod";
 
-import { Button, Form, Input, Label, View, YStack } from "tamagui";
+import {Button, Form, Input, Label, Spinner, View, YStack} from "tamagui";
 
 const loginSchema = z.object({
-  email: z.string().email("Enter a valid email address"),
+  email: z.email("Enter a valid email address"),
   password: z.string().min(8, "Password must be at least 8 characters")
 });
 
@@ -185,12 +185,22 @@ export default function LoginScreen() {
             </YStack>
             <YStack gap="$3" marginBlockStart="$8">
               {authError ? <Text color="$red10">{authError}</Text> : null}
-              <Button onPress={handleSubmit(onSubmit)} disabled={isSubmitting}>
-                Sign In
+              <Button
+                  theme="orange_accent"
+                  onPress={handleSubmit(onSubmit)} disabled={isSubmitting}>
+                {isSubmitting ? <Spinner
+                  theme="light_accent"
+                /> : "Sign In"}
               </Button>
-              <Link href="/auth/signup" asChild>
-                <Button variant="outlined">Sign Up</Button>
+
+              <Text>
+                You don't have an account? <Link
+                  href='/auth/signup'>
+                <Text color='$orange11'>
+                  Sign Up
+                </Text>
               </Link>
+              </Text>
             </YStack>
           </Form>
         </YStack>

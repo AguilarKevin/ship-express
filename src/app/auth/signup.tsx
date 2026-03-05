@@ -1,14 +1,14 @@
-import { SafeAreaView, ScrollView, Text } from "@/components/Themed";
-import { containerStyles } from "@/constants/Styles";
-import { supabase } from "@/lib/supabase";
-import { Eye, EyeOff, Lock, Mail } from "@tamagui/lucide-icons";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "expo-router";
-import { useState } from "react";
-import { Pressable } from "react-native";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button, Form, Input, Label, View, YStack } from "tamagui";
+import {SafeAreaView, ScrollView, Text} from "@/components/Themed";
+import {containerStyles} from "@/constants/Styles";
+import {supabase} from "@/lib/supabase";
+import {Eye, EyeOff, Lock, Mail} from "@tamagui/lucide-icons";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {Link, useRouter} from "expo-router";
+import {useState} from "react";
+import {Pressable} from "react-native";
+import {Controller, useForm} from "react-hook-form";
+import {z} from "zod";
+import {Button, Form, Input, Label, Spinner, View, YStack} from "tamagui";
 
 const signUpSchema = z
   .object({
@@ -50,6 +50,8 @@ export default function SignUpScreen() {
 
     const { data, error } = await supabase.auth.signUp({
       email: values.email.trim(),
+      options: {
+      },
       password: values.password
     });
 
@@ -73,7 +75,6 @@ export default function SignUpScreen() {
           style={{
             ...containerStyles.styles,
             flex: 1,
-            alignItems: "center",
             justifyContent: "center"
           }}
         >
@@ -263,15 +264,26 @@ export default function SignUpScreen() {
               </YStack>
             </YStack>
 
-            <YStack gap="$3" marginBlockStart="$8">
+            <YStack gap="$5" marginBlockStart="$8" items='center'>
               {authError ? <Text color="$red10">{authError}</Text> : null}
               {successMessage ? <Text color="$green10">{successMessage}</Text> : null}
-              <Button onPress={handleSubmit(onSubmit)} disabled={isSubmitting}>
-                Create Account
+              <Button
+                  width='100%'
+                  theme='orange_accent'
+                  onPress={handleSubmit(onSubmit)} disabled={isSubmitting}>
+                {isSubmitting ? <Spinner
+                  theme="light_accent"
+                /> : "Sign Up"}
               </Button>
-              <Button variant="outlined" onPress={() => router.push("/auth/login")}>
-                Back to Sign In
-              </Button>
+
+              <Text>
+                Already have an account? <Link
+                  href='/auth/login'>
+                <Text color='$orange11'>
+                  Login
+                </Text>
+              </Link>
+              </Text>
             </YStack>
           </Form>
         </YStack>
