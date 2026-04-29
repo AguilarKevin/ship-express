@@ -9,7 +9,7 @@ declare global {
     title: string;
     description: string;
     date: string;
-    done: boolean;
+    status: PackageStatus;
   };
 
   type PackageItem = {
